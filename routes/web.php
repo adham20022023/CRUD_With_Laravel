@@ -28,7 +28,7 @@ Route::get('/', function () { //
 //!
 // we will add :: class => to tell this is a class not a constant
 //TestController::class ==> 'namespace\\App\\Http\\Controllers\\TestController'
-Route::get('/posts',[PostController::class,'index'])->name('posts.index');
+
 // Route::get('test3','App\Http\Controllers\TestController@TestAction');
 //!
 //this not right we should separate the logic into another file
@@ -41,7 +41,14 @@ Route::get('/posts',[PostController::class,'index'])->name('posts.index');
 //     return view('test',['posts'=>$posts]);
 // });
 //{post} => is a variable
-Route::get('/posts/create',[PostController::class,'create'])->name('posts.create');
-Route::POST('/posts',[PostController::class,'store'])->name('posts.store');
-Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
-Route::delete('/posts/{post}',[PostController::class,'destroy'])->name('posts.destroy');
+Route::group(['prefix'=>'posts'],function(){
+Route::get('/',[PostController::class,'index'])->name('posts.index');
+Route::get('/create',[PostController::class,'create'])->name('posts.create');
+Route::POST('',[PostController::class,'store'])->name('posts.store');
+Route::get('/{post}',[PostController::class,'show'])->name('posts.show');
+Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/{post}/edit',[PostController::class,'edit'])->name('posts.edit');
+Route::put('/{post}/update',[PostController::class,'update'])->name('posts.update');
+});
+
+Route::fallback(fn()=>redirect(Route('posts.index'))); // this is the default route for any link

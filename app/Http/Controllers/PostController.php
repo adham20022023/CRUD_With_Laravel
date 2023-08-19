@@ -16,7 +16,7 @@ class PostController extends Controller
     public function show($post){
         // $post=Post::find($post);
         $post=post::where('id',$post)->first();
-        // dd($post);
+        //  dd($post);
         return view('posts.show',['post'=>$post]);
     }
     public function create (){
@@ -40,4 +40,30 @@ class PostController extends Controller
         // $post->save();
         return redirect()->route('posts.index');
     }
-}
+    public function destroy($post)
+    {
+        // dd($id);
+        $post = Post::find($post );
+        $post->delete();
+        return redirect()->route('posts.index');
+    }
+    public function edit($post){
+        $post=post::where('id',$post)->first();
+        // dd($post);
+        return view('posts.edit',['post'=>$post,'users'=> User::all()]);
+    }
+    public function update(Request $request, $post){
+        $postToUpdate = Post::find($post);
+        if (!$postToUpdate) {
+            abort(404, 'Post not found');
+        }
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'user_id' => 'required|exists:users,id'
+        ]);
+        $postToUpdate->update($validatedData);
+        return redirect()->route('posts.index');
+    }
+
+   }

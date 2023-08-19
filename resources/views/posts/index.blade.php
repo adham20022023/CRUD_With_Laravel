@@ -23,12 +23,20 @@
 
                     <td>{{$post->myuser_relation?$post->myuser_relation->name:"User not Found"}}</td>
                     <td>{{$post->created_at}}</td>
-
                     <td>
                         <a href='{{route('posts.show' ,['post' =>$post['id']])}}' class="btn btn-info">view</a>
-                        <a href='' class="btn btn-primary">edit</a>
-                        <a href='{{route('posts.destroy' ,['post' =>$post['id']])}}' class="btn btn-danger">Delete</a>
+                        <form action="{{ route('posts.edit', ['post' => $post['id']]) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('get')
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                        <form action="{{ route('posts.destroy', ['post' => $post['id']]) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
