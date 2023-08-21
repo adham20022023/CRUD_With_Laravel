@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
@@ -24,7 +26,7 @@ class PostController extends Controller
             'users'=> User::all(),
         ]);
     }
-    public function store (Request $myRequest){
+    public function store (StorePostRequest $myRequest){
         //get the request data
         //insert into database
         $data=$myRequest->all();
@@ -33,6 +35,12 @@ class PostController extends Controller
         //     'title'=>$data['title'],
         //     'description'=>$data['description'],
         // ]);
+        // $myRequest->validate([
+        //     'title' =>'required|string|min:3|max:30',
+        //     'description' =>'required|string|min:50|max:255',
+
+        // ],['title.required'=>'watch Out Title is required',
+        // 'description.required'=>'watch Out Description is required']);
         post::create($data);
         // $post=new Post;
         // $post->title=$data['title'];
