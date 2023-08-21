@@ -16,7 +16,15 @@
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="{{route('posts.index')}}">All Posts</a>
     </nav>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 @yield('content');
 
 
