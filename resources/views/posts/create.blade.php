@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <form method="POST" action="{{route('posts.store')}}" >
-        {{-- @csrf --}}
+        @csrf
         <div class="form-group">
           <label for="exampleFormControlInput1">Title</label>
           <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">

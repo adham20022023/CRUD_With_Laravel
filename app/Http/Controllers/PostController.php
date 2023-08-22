@@ -10,6 +10,7 @@ use App\Models\User;
 class PostController extends Controller
 {
     public function index(){
+        //logic to check authentication
         $posts=Post::all();
         // dd($posts);
         //View Is helper method can called from anywhere
@@ -27,6 +28,7 @@ class PostController extends Controller
         ]);
     }
     public function store (StorePostRequest $myRequest){
+        // dd($myRequest);
         //get the request data
         //insert into database
         $data=$myRequest->all();

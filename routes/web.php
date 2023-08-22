@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //id autoincrement
 //title varchar
@@ -41,7 +42,7 @@ Route::get('/', function () { //
 //     return view('test',['posts'=>$posts]);
 // });
 //{post} => is a variable
-Route::group(['prefix'=>'posts'],function(){
+Route::group(['prefix'=>'posts','middleware'=>'auth'],function(){
 Route::get('/',[PostController::class,'index'])->name('posts.index');
 Route::get('/create',[PostController::class,'create'])->name('posts.create');
 Route::POST('',[PostController::class,'store'])->name('posts.store');
@@ -52,3 +53,11 @@ Route::put('/{post}/update',[PostController::class,'update'])->name('posts.updat
 });
 
 Route::fallback(fn()=>redirect(Route('posts.index'))); // this is the default route for any link
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
