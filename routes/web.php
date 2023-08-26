@@ -52,12 +52,10 @@ Route::get('/{post}/edit',[PostController::class,'edit'])->name('posts.edit');
 Route::put('/{post}/update',[PostController::class,'update'])->name('posts.update');
 });
 
-Route::fallback(fn()=>redirect(Route('posts.index'))); // this is the default route for any link
+// Route::fallback(fn()=>redirect(Route('posts.index'))); // this is the default route for any link
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
