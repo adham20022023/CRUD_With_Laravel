@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/posts',[ApiPostController::class,'index']);
+Route::get('posts/{post}',[ApiPostController::class,'show']);
